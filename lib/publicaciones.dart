@@ -19,7 +19,6 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
    // 
     super.initState();
-   //futureAlbum = fetchAlbum();
   }
 
   @override
@@ -36,7 +35,6 @@ class _DetailPageState extends State<DetailPage> {
             future: getPostsForUser(todo),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                print (todo);
                 return ListView.builder(
              itemCount: 10,
              itemBuilder: (_, index) {
@@ -52,8 +50,7 @@ class _DetailPageState extends State<DetailPage> {
                     snapshot.data![index].body.toString(),
                    
                   ))]));
-                
-               //Text( snapshot.data![index].body.toString()); // error The method '[]' can't be unconditionally invoked because the receiver can be 'null'
+
              } );
               } else if (snapshot.hasError) {
                // print (snapshot.error);
@@ -78,7 +75,7 @@ class _DetailPageState extends State<DetailPage> {
 
 
 class UserPosts{
-  int  userId;
+  int userId;
   int id;
   String title;
   String body;
@@ -96,21 +93,6 @@ class UserPosts{
 } 
 
 
-
-Future<UserPosts> fetchPosts(todo) async {
-  final response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/posts?userId={$todo}'));
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-     return UserPosts.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
-  }
-}
 
   Future<List<UserPosts>> getPostsForUser(int userId) async {
     // ignore: deprecated_member_use
