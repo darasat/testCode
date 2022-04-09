@@ -61,18 +61,9 @@ class _DetailPageState extends State<DetailPage> {
               return const CircularProgressIndicator();
             },
           ),
-
-     /*  Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(todo.toString()),
-      ), */
     );
   }
 }
-
-
-
-
 
 class UserPosts{
   int userId;
@@ -121,9 +112,5 @@ class UserPosts{
     throw Exception('Failed to load posts');
   }
   
-
-
-  }
-
-
+}
 
