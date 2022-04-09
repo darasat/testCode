@@ -39,27 +39,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Home'),
+    return  Scaffold(
+      appBar:  AppBar(
+        title: Text('Home'),
         elevation: 0.0,
       ),
-      body: new Column(
+      body:  Column(
         children: <Widget>[
-          new Container(
+           Container(
             color: Theme.of(context).primaryColor,
-            child: new Padding(
+            child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: new Card(
-                child: new ListTile(
-                  leading: new Icon(Icons.search),
-                  title: new TextField(
+              child:  Card(
+                child:  ListTile(
+                  leading:  Icon(Icons.search),
+                  title:  TextField(
                     controller: controller,
-                    decoration: new InputDecoration(
+                    decoration: InputDecoration(
                         hintText: 'Search', border: InputBorder.none),
                     onChanged: onSearchTextChanged,
                   ),
-                  trailing: new IconButton(icon: new Icon(Icons.cancel), onPressed: () {
+                  trailing: IconButton(icon: Icon(Icons.cancel), onPressed: () {
                     controller.clear();
                     onSearchTextChanged('');
                   },),
@@ -68,32 +68,32 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           // ignore: unnecessary_new
-          new Expanded(
+           Expanded(
             child: _searchResult.length != 0 || controller.text.isNotEmpty
-                ? new ListView.builder(
+                ?  ListView.builder(
               itemCount: _searchResult.length,
               itemBuilder: (context, i) {
-                return new Card(
-                  child: new ListTile(
+                return  Card(
+                  child: ListTile(
                    // leading: new CircleAvatar(backgroundImage: new NetworkImage(_searchResult[i].profileUrl,),),
-                    title: new Text(_searchResult[i].firstName + ' ' + _searchResult[i].lastName),
+                    title: Text(_searchResult[i].firstName + ' ' + _searchResult[i].lastName),
                   ),
                   margin: const EdgeInsets.all(0.0),
                 );
               },
             )
-                : new ListView.builder(
+                :  ListView.builder(
               itemCount: _userDetails.length,
               itemBuilder: (context, index) {
       
-            return new  Card(
-            child: new Column(
+            return  Card(
+            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new ListTile(
+               ListTile(
                 
-                title: new Text(_userDetails[index].firstName + ' ' + _userDetails[index].lastName),
-                 subtitle: new Text(
+                title:  Text(_userDetails[index].firstName + ' ' + _userDetails[index].lastName),
+                 subtitle:  Text(
                    _userDetails[index].phone,
                    
                 ),
@@ -103,13 +103,13 @@ class _HomePageState extends State<HomePage> {
               Padding(
               padding: const EdgeInsets.only(left: 15.0),
               child: 
-              new Text(_userDetails[index].email),
+               Text(_userDetails[index].email),
               
               ) ,
            
-               new ButtonBar(
+                ButtonBar(
                   children: <Widget>[
-                    new FlatButton(
+                     FlatButton(
                       child: const Text('VER PUBLICACIONES'),
                       onPressed: () {
                          /* ... */

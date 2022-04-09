@@ -32,12 +32,31 @@ class _DetailPageState extends State<DetailPage> {
         title: Text("Test"),
       ),
       body: 
-     FutureBuilder<UserPosts>(
-            future: fetchPosts(todo),
+     FutureBuilder<List<UserPosts>>(
+            future: getPostsForUser(todo),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text(snapshot.data!.body);
+                print (todo);
+                return ListView.builder(
+             itemCount: 10,
+             itemBuilder: (_, index) {
+               return 
+                  Card(
+                  child:  Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                   children: <Widget>[
+                    ListTile(
+                
+                    title: Text(snapshot.data![index].title.toString()),
+                    subtitle: Text(
+                    snapshot.data![index].body.toString(),
+                   
+                  ))]));
+                
+               //Text( snapshot.data![index].body.toString()); // error The method '[]' can't be unconditionally invoked because the receiver can be 'null'
+             } );
               } else if (snapshot.hasError) {
+               // print (snapshot.error);
                 return Text('${snapshot.error}');
               }
 
@@ -59,7 +78,7 @@ class _DetailPageState extends State<DetailPage> {
 
 
 class UserPosts{
-  String userId;
+  int  userId;
   int id;
   String title;
   String body;
@@ -92,6 +111,37 @@ Future<UserPosts> fetchPosts(todo) async {
     throw Exception('Failed to load album');
   }
 }
+
+  Future<List<UserPosts>> getPostsForUser(int userId) async {
+    // ignore: deprecated_member_use
+    var posts = <UserPosts>[];
+    // Get user posts for id
+    var response = await http
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/posts?=$userId'));
+
+    print (response.statusCode);
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+      // parse into List
+    var parsed = json.decode(response.body) as List<dynamic>;
+
+    // loop and convert each item to Post
+    for (var post in parsed) {
+      //print (post);
+      posts.add(UserPosts.fromJson(post));
+    }
+
+    return posts;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load posts');
+  }
+  
+
+
+  }
 
 
 
