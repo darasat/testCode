@@ -37,7 +37,7 @@ class _DetailPageState extends State<DetailPage> {
               if (snapshot.hasData) {
                 return ListView.builder(
              itemCount: 10,
-             itemBuilder: (_, index) {
+             itemBuilder: (context, index) {
                return 
                   Card(
                   child:  Column(
@@ -99,7 +99,7 @@ class UserPosts{
     var posts = <UserPosts>[];
     // Get user posts for id
     var response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/posts?=$userId'));
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/posts?userId=$userId'));
 
     print (response.statusCode);
   if (response.statusCode == 200) {
